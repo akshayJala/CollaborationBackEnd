@@ -45,8 +45,8 @@ public class BlogController {
          }
 	}
 	
-	@RequestMapping(value = "/blog{id}" , method = RequestMethod.GET)
-	public Blog getBlog(@PathVariable("id")int id){
+	@RequestMapping(value = "/blog/{id}" , method = RequestMethod.GET)
+	public ResponseEntity<Blog> getBlog(@PathVariable("id")int id){
 		
 		Blog blog = blogDAO.get(id);
 		if(blog == null)
@@ -56,7 +56,7 @@ public class BlogController {
 			blog.setErrorMessage("Blog not found with the id"+ id);
 		}
 		
-		return blog;
+		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/blog/" , method = RequestMethod.POST)
